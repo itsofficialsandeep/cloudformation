@@ -2,6 +2,34 @@ AWSTemplateFormatVersion: "2010-09-09"
 Description: "CloudFormation template to create an EC2 instance of type t2.micro"
 
 Resources:
+  MyVPC:
+    Type: "AWS::EC2::VPC"
+    Properties:
+      CidrBlock: "10.0.0.0/16"
+      Tags:
+        - Key: Name
+          Value: "MyVPC"
+
+  MySubnet:
+    Type: "AWS::EC2::Subnet"
+    Properties:
+      VpcId: !Ref MyVPC
+      CidrBlock: "10.0.0.0/24"
+      Tags:
+        - Key: Name
+          Value: "MySubnet"
+
+  InstanceSecurityGroup:
+    Type: "AWS::EC2::SecurityGroup"
+    Properties:
+      GroupDescription: "Security group for the EC2 instance"
+      VpcId: !Ref MyVPC
+      SecurityGroupIngress:
+        - CidrIp: "0.0.0.0/0"
+          IpProtocol: "tcp"
+          FromPort: 22  # SSH
+          ToPort: 22
+
   EC2Instance:
     Type: "AWS::EC2::Instance"
     Properties:
@@ -10,19 +38,7 @@ Resources:
       SecurityGroups:
         - !Ref InstanceSecurityGroup
       KeyName: "aws_instance_key"  # Replace with your EC2 key pair name
-
-  InstanceSecurityGroup:
-    Type: "AWS::EC2::SecurityGroup"
-    Properties:
-      GroupDescription: "Security group for the EC2 instance"
-      SecurityGroupIngress:
-        - CidrIp: "0.0.0.0/0"
-          IpProtocol: "tcp"
-          FromPort: 22  # SSH
-          ToPort: 22
-      SecurityGroupEgress:
-        - CidrIp: "0.0.0.0/0"
-          IpProtocol: "-1"  # Allow all outbound traffic
+      SubnetId: !Ref MySubnet
 
 Outputs:
   EC2InstanceIP:
