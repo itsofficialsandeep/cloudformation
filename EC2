@@ -34,7 +34,7 @@ Resources:
     Type: "AWS::EC2::Instance"
     Properties:
       InstanceType: "t2.micro"
-      ImageId: "Amazon Linux 2023 AMI"  # Replace with your desired AMI ID
+      ImageId: "ami-040d60c831d02d41c (64-bit (x86))"  # Replace with your desired AMI ID
       SecurityGroups:
         - !Ref InstanceSecurityGroup
       KeyName: "aws_instance_key"  # Replace with your EC2 key pair name
