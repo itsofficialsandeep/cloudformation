@@ -35,10 +35,10 @@ Resources:
     Properties:
       InstanceType: "t2.micro"
       ImageId: "ami-040d60c831d02d41c"  # Replace with your desired AMI ID
-      SecurityGroups:
-        - !Ref InstanceSecurityGroup
       KeyName: "aws_instance_key"  # Replace with your EC2 key pair name
       SubnetId: !Ref MySubnet
+      SecurityGroupIds:
+        - !Ref InstanceSecurityGroup
 
 Outputs:
   EC2InstanceIP:
