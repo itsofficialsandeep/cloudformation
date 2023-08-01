@@ -33,7 +33,7 @@ Resources:
   EC2Instance:
     Type: "AWS::EC2::Instance"
     Properties:
-      InstanceType: "t2.micro"
+      InstanceType: "t3.micro"
       ImageId: "ami-040d60c831d02d41c"  # Replace with your desired AMI ID
       KeyName: "aws_instance_key"  # Replace with your EC2 key pair name
       SubnetId: !Ref MySubnet
